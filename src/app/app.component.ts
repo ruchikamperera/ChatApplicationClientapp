@@ -1,10 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { SignalRService } from './services/signal-r.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.component.html'
 })
-export class AppComponent {
-  title = 'ChatApplicationClientapp';
+export class AppComponent implements OnInit{
+
+  constructor(public signalRService: SignalRService) {
+  }
+
+  ngOnInit(): void {
+    this.initChat();
+    this.signalRService.addGroupChatListener();
+  }
+
+  private initChat(): void {
+    this.signalRService.startConnection();
+  }
 }
